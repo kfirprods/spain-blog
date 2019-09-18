@@ -1,0 +1,11 @@
+.title {
+  display: block;
+  text-align: center;
+  font-weight: 700;
+  font-family: "Arimo";
+  font-size: 2em;
+}
+
+.dots-section {
+  text-align:center;
+}

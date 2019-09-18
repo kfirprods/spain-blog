@@ -1,0 +1,15 @@
+<div class="container">
+  <span class="dot checked-dot darkened-dot" 
+        *ngFor="let progressDot of pastProgressDots" 
+        [title]="progressDot">  
+  </span>
+
+  <span class="dot checked-dot" 
+        [title]="currentProgress">  
+  </span>
+
+  <span class="dot unchecked-dot" 
+        *ngFor="let progressDot of futureProgressDots"
+        [title]="progressDot"> 
+  </span>
+</div>

@@ -1,0 +1,25 @@
+$blue: #1878F3;
+
+.dot {
+  height: 2em;
+  width: 2em;
+  margin: 0.5em;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.unchecked-dot {
+  background-color: #ccc;
+}
+
+.checked-dot {
+  background-color: $blue;
+}
+
+.darkened-dot {
+  background-color: darken($blue, 20%);
+}
+
+.container {
+  margin: 0 auto;
+}
