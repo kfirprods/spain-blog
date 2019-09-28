@@ -1,0 +1,7 @@
+<div *ngFor="let post of posts">
+  <img *ngIf="post.media.type == 'image'" [src]="post.media.source">
+  <h2>{{post.title}}</h2>
+  <p>
+    {{post.content}}
+  </p>
+</div>

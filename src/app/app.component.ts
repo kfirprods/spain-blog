@@ -1,3 +1,4 @@
+import { BlogPost } from './data-models/blog-post.type';
 import { Component, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TripData } from './data-models/trip-data';
@@ -14,12 +15,16 @@ export class AppComponent  {
 
   tripData: TripData;
   currentActivity: ActivityType;
+  todaysBlogPosts: Array<BlogPost>;
+  currentDay: number;
 
   constructor(private http: HttpClient) {
     this.tripData = null;
 
     this.http.get('https://kfir.dev/spain/tripdata.json').subscribe((data: TripData) => {
       this.tripData = data;
+      this.currentDay = 6;
+      this.todaysBlogPosts = data.blogPosts.filter(b => b.day === this.currentDay);
 
       switch (this.tripData.currentActivity) {
         case 'walking': {
