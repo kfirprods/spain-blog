@@ -12,10 +12,12 @@ import { DaysProgressionComponent } from './days-progression/days-progression.co
 import { httpInterceptorProviders } from './http-interceptors';
 import { CurrentActivityComponent } from './current-activity/current-activity.component';
 import { BlogPostsComponent } from './blog-posts/blog-posts.component';
+import { TimestampPresenterComponent } from './timestamp-presenter/timestamp-presenter.component';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpClientModule, AngularSvgIconModule ],
-  declarations: [ AppComponent, ProgressBarDotsComponent, DaysProgressionComponent, CurrentActivityComponent, BlogPostsComponent ],
+  declarations: [ AppComponent, ProgressBarDotsComponent, DaysProgressionComponent,
+                  CurrentActivityComponent, BlogPostsComponent, TimestampPresenterComponent ],
   bootstrap:    [ AppComponent ],
   providers:    httpInterceptorProviders
 })

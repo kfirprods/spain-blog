@@ -23,7 +23,19 @@ export class AppComponent  {
 
     this.http.get('https://kfir.dev/spain/tripdata.json').subscribe((data: TripData) => {
       this.tripData = data;
-      this.currentDay = 6;
+
+      const totalTripDays = Math.ceil(
+        (this.tripData.tripDuration.tripEnd.getTime() - this.tripData.tripDuration.tripStart.getTime()) / (1000 * 60 * 60 * 24)
+      );
+
+      this.currentDay = Math.ceil(
+        ((new Date()).getTime() - this.tripData.tripDuration.tripStart.getTime()) / (1000 * 60 * 60 * 24)
+      );
+
+      if (this.currentDay > totalTripDays) {
+        this.currentDay = totalTripDays;
+      }
+
       this.todaysBlogPosts = data.blogPosts.filter(b => b.day === this.currentDay);
 
       switch (this.tripData.currentActivity) {
