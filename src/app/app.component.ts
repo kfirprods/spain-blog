@@ -21,7 +21,7 @@ export class AppComponent  {
   constructor(private http: HttpClient) {
     this.tripData = null;
 
-    this.http.get('https://kfir.dev/spain/tripdata.json').subscribe((data: TripData) => {
+    this.http.get('https://kfir.dev:3000/spain/tripdata').subscribe((data: TripData) => {
       this.tripData = data;
 
       const totalTripDays = Math.ceil(
