@@ -18,10 +18,6 @@ export class TimestampPresenterComponent implements OnInit {
     const hourDifference = Math.floor(diff / (60 * 60));
     const daysDifference = Math.floor(diff / (60 * 60 * 24));
 
-    console.log(this.timestamp);
-    console.log(new Date());
-    console.log('diff = ' + diff);
-
     if (diff < 10 * 60) {
       this.timespanDescription = 'פורסם לפני כמה דקות';
     } else if (diff < 60 * 60) {

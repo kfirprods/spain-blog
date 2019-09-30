@@ -13,11 +13,12 @@ import { httpInterceptorProviders } from './http-interceptors';
 import { CurrentActivityComponent } from './current-activity/current-activity.component';
 import { BlogPostsComponent } from './blog-posts/blog-posts.component';
 import { TimestampPresenterComponent } from './timestamp-presenter/timestamp-presenter.component';
+import { BlogPostContentPresenterComponent } from './blog-post-content-presenter/blog-post-content-presenter.component';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpClientModule, AngularSvgIconModule ],
   declarations: [ AppComponent, ProgressBarDotsComponent, DaysProgressionComponent,
-                  CurrentActivityComponent, BlogPostsComponent, TimestampPresenterComponent ],
+                  CurrentActivityComponent, BlogPostsComponent, TimestampPresenterComponent, BlogPostContentPresenterComponent ],
   bootstrap:    [ AppComponent ],
   providers:    httpInterceptorProviders
 })
