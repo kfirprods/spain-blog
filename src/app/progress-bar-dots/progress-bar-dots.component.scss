@@ -1,11 +1,16 @@
 $blue: #1878F3;
 
 .dot {
-  height: 2em;
-  width: 2em;
+  height: 4em;
+  width: 4em;
   margin: 0.5em;
   border-radius: 50%;
   display: inline-block;
+
+  @media screen and (min-width: 1024px) {
+    width: 2em;
+    height: 2em;
+  }
 }
 
 .unchecked-dot {

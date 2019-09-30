@@ -4,7 +4,7 @@ import { TripDuration } from '../data-models/trip-duration';
 @Component({
   selector: 'app-days-progression',
   templateUrl: './days-progression.component.html',
-  styleUrls: ['./days-progression.component.css']
+  styleUrls: ['./days-progression.component.scss']
 })
 export class DaysProgressionComponent implements OnInit {
 

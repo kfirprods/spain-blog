@@ -19,31 +19,31 @@ export class CurrentActivityComponent implements OnInit {
   ngOnInit() {
     switch(this.activityType) {
       case ActivityType.Dining: {
-        this.currentActivityIconPath = "https://kfir.dev/spain/icons/dine.svg";
+        this.currentActivityIconPath = "https://kfir.dev/spainmedia/icons/dine.svg";
         this.currentActivityTitle = "אוכל";
         break;
       }
 
       case ActivityType.Walking: {
-        this.currentActivityIconPath = "https://kfir.dev/spain/icons/walk.svg";
+        this.currentActivityIconPath = "https://kfir.dev/spainmedia/icons/walk.svg";
         this.currentActivityTitle = "מטייל";
         break;
       }
 
       case ActivityType.Flight: {
-        this.currentActivityIconPath = "https://kfir.dev/spain/icons/airplane-takeoff.svg";
+        this.currentActivityIconPath = "https://kfir.dev/spainmedia/icons/airplane-takeoff.svg";
         this.currentActivityTitle = "בטיסה";
         break;
       }
 
       case ActivityType.PublicTransportation: {
-        this.currentActivityIconPath = "https://kfir.dev/spain/icons/bus.svg";
+        this.currentActivityIconPath = "https://kfir.dev/spainmedia/icons/bus.svg";
         this.currentActivityTitle = "תחבורה ציבורית";
         break;
       }
 
       case ActivityType.Sleeping: {
-        this.currentActivityIconPath = "https://kfir.dev/spain/icons/sleep.svg";
+        this.currentActivityIconPath = "https://kfir.dev/spainmedia/icons/sleep.svg";
         this.currentActivityTitle = "ישן";
         break;
       }
