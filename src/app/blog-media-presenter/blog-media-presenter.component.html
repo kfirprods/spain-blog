@@ -9,5 +9,7 @@
 <ks-carousel *ngIf="media.type === 'gallery'"
               [previewConfig]="{size: {height: '100px'}}"
               [carouselImageConfig]="{description: {strategy: 2}}"
+              [carouselConfig]="{showArrows: false}"
+              [dotsConfig]="{visible: false}"
               [id]="0"
               [images]="galleryImages"></ks-carousel>

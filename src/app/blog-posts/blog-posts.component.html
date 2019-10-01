@@ -4,11 +4,10 @@
       <app-timestamp-presenter [timestamp]="post.timestamp">
       </app-timestamp-presenter>
     </h4>
-    <img
-      class="post-header-media"
-      *ngIf="post.media.type == 'image'"
-      [src]="post.media.source"
-    />
+    <app-blog-media-presenter *ngIf="post.media !== undefined"
+                              [media]="post.media"
+                              class="post-header-media">
+    </app-blog-media-presenter>
     <h2>{{ post.title }}</h2>
 
     <div class="post-content">
