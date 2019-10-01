@@ -1,7 +1,8 @@
 <p *ngFor="let paragraph of content.paragraphs">
-  <img *ngIf="paragraph.media !== undefined && paragraph.media.type === 'image'"
-       [src]="paragraph.media.source"
-       class="inline-media">
+  <app-blog-media-presenter *ngIf="paragraph.media !== undefined"
+                            [media]="paragraph.media"
+                            class="inline-media">
+  </app-blog-media-presenter>
 
   {{paragraph.text}}
 </p>

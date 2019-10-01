@@ -1,0 +1,13 @@
+<img *ngIf="media.type === 'image'" [src]="media.source">
+
+<mat-video *ngIf="media.type === 'video'" [src]="media.source"></mat-video>
+
+<youtube-player *ngIf="media.type === 'youtube'"
+                width="560" height="315" frameborder="0" allowfullscreen
+                [videoId]="media.source"></youtube-player>
+
+<ks-carousel *ngIf="media.type === 'gallery'"
+              [previewConfig]="{size: {height: '100px'}}"
+              [carouselImageConfig]="{description: {strategy: 2}}"
+              [id]="0"
+              [images]="galleryImages"></ks-carousel>

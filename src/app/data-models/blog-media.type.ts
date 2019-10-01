@@ -1,4 +1,6 @@
 export interface BlogMedia {
   type: string;
-  source: string;
+  source: any;
+  width: number;
+  height: number;
 }
