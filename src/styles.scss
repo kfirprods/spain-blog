@@ -3,5 +3,14 @@ body {
   direction: rtl;
   margin: 0;
   background: black;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url('https://kfir.dev/spainmedia/images/grass_background_portrait.jpg');
+
+  @media screen and (min-width: 1024px) {
+    background-image: url('https://kfir.dev/spainmedia/images/grass_background_landscape.jpg');
+  }
 }
 
