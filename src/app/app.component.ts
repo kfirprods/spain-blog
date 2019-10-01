@@ -15,8 +15,9 @@ export class AppComponent  {
 
   tripData: TripData;
   currentActivity: ActivityType;
-  todaysBlogPosts: Array<BlogPost>;
+  blogPosts: Array<BlogPost>;
   currentDay: number;
+  absoluteCurrentDay: number;
 
   constructor(private http: HttpClient) {
     this.tripData = null;
@@ -31,12 +32,13 @@ export class AppComponent  {
       this.currentDay = Math.ceil(
         ((new Date()).getTime() - this.tripData.tripDuration.tripStart.getTime()) / (1000 * 60 * 60 * 24)
       );
+      this.absoluteCurrentDay = this.currentDay;
 
       if (this.currentDay > totalTripDays) {
         this.currentDay = totalTripDays;
       }
 
-      this.todaysBlogPosts = data.blogPosts.filter(b => b.day === this.currentDay);
+      this.blogPosts = data.blogPosts;
 
       switch (this.tripData.currentActivity) {
         case 'walking': {
@@ -61,5 +63,9 @@ export class AppComponent  {
         }
       }
     });
-   }
+  }
+
+  changeCurrentDay(selectedDay: number) {
+    this.currentDay = selectedDay;
+  }
 }

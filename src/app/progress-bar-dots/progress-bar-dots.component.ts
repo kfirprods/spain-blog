@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-progress-bar-dots',
@@ -7,19 +7,27 @@ import { Component, OnInit, Input} from '@angular/core';
 })
 export class ProgressBarDotsComponent implements OnInit {
   @Input() currentProgress: number;
+  @Input() selectedProgress: number;
 
   @Input() total: number;
 
-  futureProgressDots;
-  pastProgressDots;
+  @Output() dotClicked = new EventEmitter<number>();
+
+  progressDots: Array<number>;
 
   constructor() {
   }
 
   ngOnInit() {
-    this.pastProgressDots = Array(Number(this.currentProgress) - 1).fill(0).map((x, i) => i + 1);
-    this.futureProgressDots = Array(Number(this.total - this.currentProgress)).fill(0).map((x, i) => i + 1 + Number(this.currentProgress));
+    if (this.currentProgress > this.total) {
+      this.currentProgress = this.total;
+    }
+
+    this.progressDots = Array(Number(this.total) - 1).fill(0).map((x, i) => i + 1);
+    this.selectedProgress = this.currentProgress;
   }
 
-
+  handleDotClick(dotNumber: number) {
+    this.dotClicked.emit(dotNumber);
+  }
 }

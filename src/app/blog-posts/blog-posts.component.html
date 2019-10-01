@@ -1,14 +1,19 @@
 <div *ngFor="let post of posts" class="blog-post-container">
-  <h4>
-    <app-timestamp-presenter [timestamp]="post.timestamp">
+  <div *ngIf="post.day === currentDay">
+    <h4>
+      <app-timestamp-presenter [timestamp]="post.timestamp">
+      </app-timestamp-presenter>
+    </h4>
+    <img
+      class="post-header-media"
+      *ngIf="post.media.type == 'image'"
+      [src]="post.media.source"
+    />
+    <h2>{{ post.title }}</h2>
 
-    </app-timestamp-presenter>
-  </h4>
-  <img class="post-header-media" *ngIf="post.media.type == 'image'" [src]="post.media.source">
-  <h2>{{post.title}}</h2>
-
-  <div class="post-content">
-    <app-blog-post-content-presenter [content]="post.content">
-    </app-blog-post-content-presenter>
+    <div class="post-content">
+      <app-blog-post-content-presenter [content]="post.content">
+      </app-blog-post-content-presenter>
+    </div>
   </div>
 </div>

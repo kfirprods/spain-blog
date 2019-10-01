@@ -7,12 +7,11 @@ import { BlogPost } from '../data-models/blog-post.type';
   styleUrls: ['./blog-posts.component.scss']
 })
 export class BlogPostsComponent implements OnInit {
-  @Input()
-  posts: Array<BlogPost>;
+  @Input() posts: Array<BlogPost>;
+  @Input() currentDay: number;
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

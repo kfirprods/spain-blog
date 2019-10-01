@@ -6,7 +6,10 @@
   </section>
 
   <section class="dots-section">
-    <app-progress-bar-dots [currentProgress]="currentDay" [total]="totalDayCount">
+    <app-progress-bar-dots [selectedProgress]="currentDay"
+                           [currentProgress]="absoluteCurrentDay"
+                           [total]="totalDayCount"
+                           (dotClicked)="onDotClicked($event)">
     </app-progress-bar-dots>
   </section>
 </div>

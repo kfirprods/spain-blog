@@ -7,7 +7,10 @@
 <div id="main-app-container">
   <!-- Header: Trip progress and current activity -->
   <section class='header'>
-    <app-days-progression [data]="tripData.tripDuration">
+    <app-days-progression [data]="tripData.tripDuration"
+                          [currentDay]="currentDay"
+                          [absoluteCurrentDay]="absoluteCurrentDay"
+                          (dotClicked)="changeCurrentDay($event)">
     </app-days-progression>
 
     <app-current-activity [activityType]="currentActivity">
@@ -16,7 +19,8 @@
 
   <!-- Content: Blog posts from this day -->
   <section>
-    <app-blog-posts [posts]="todaysBlogPosts">
+    <app-blog-posts [posts]="blogPosts"
+                    [currentDay]="currentDay">
     </app-blog-posts>
   </section>
 </div>

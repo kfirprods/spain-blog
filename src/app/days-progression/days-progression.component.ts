@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TripDuration } from '../data-models/trip-duration';
 
 @Component({
@@ -9,16 +9,17 @@ import { TripDuration } from '../data-models/trip-duration';
 export class DaysProgressionComponent implements OnInit {
 
   @Input() data: TripDuration;
+  @Input() currentDay: number;
+  @Input() absoluteCurrentDay: number;
+
+  @Output() dotClicked = new EventEmitter<number>();
 
   totalDayCount: number;
-  currentDay: number;
 
   constructor() { }
 
   ngOnInit() {
     this.totalDayCount = this.getDayDiff(this.data.tripEnd, this.data.tripStart);
-    const currentDate = new Date();
-    this.currentDay = this.getDayDiff(currentDate, this.data.tripStart);
   }
 
   getDayDiff(date1: Date, date2: Date) {
@@ -26,4 +27,11 @@ export class DaysProgressionComponent implements OnInit {
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   }
 
+  onDotClicked(dayNumber: number) {
+    if (dayNumber > this.absoluteCurrentDay) {
+      return;
+    }
+
+    this.dotClicked.emit(dayNumber);
+  }
 }
