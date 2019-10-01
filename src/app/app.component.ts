@@ -18,11 +18,15 @@ export class AppComponent  {
   blogPosts: Array<BlogPost>;
   currentDay: number;
   absoluteCurrentDay: number;
+  isLoadingData: boolean;
 
   constructor(private http: HttpClient) {
     this.tripData = null;
 
+    this.isLoadingData = true;
+
     this.http.get('https://kfir.dev:3000/spain/tripdata').subscribe((data: TripData) => {
+      this.isLoadingData = false;
       this.tripData = data;
 
       const totalTripDays = Math.ceil(
