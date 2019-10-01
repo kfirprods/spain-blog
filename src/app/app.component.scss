@@ -1,5 +1,5 @@
 .header {
-  background: white;
+  background: rgba(white, 0.75);
   text-align: center;
   padding: 2em 0;
 }
@@ -38,5 +38,5 @@ section {
   left: 0;
   width: 100%;
   height: 100%;
-
+  object-fit: fill;
 }
