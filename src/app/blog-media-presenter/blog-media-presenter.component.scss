@@ -1,5 +1,7 @@
-img {
-  width: 100%;
+.presented-img {
+  border-top: 3px solid #ccc;
+  border-bottom: 3px solid #ccc;
+  max-width: 80vw;
   display: block;
 }
 

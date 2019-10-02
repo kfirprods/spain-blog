@@ -1,6 +1,7 @@
 .post-header-media {
-  max-width: 50vw;
   max-height: 33vh;
+  display: flex;
+  justify-content: center;
 }
 
 .blog-post-container {
