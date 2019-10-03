@@ -3,5 +3,6 @@ export enum ActivityType {
   PublicTransportation,
   Walking,
   Dining,
-  Sleeping
+  Sleeping,
+  Nightlife
 }

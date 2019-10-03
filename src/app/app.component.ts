@@ -65,6 +65,10 @@ export class AppComponent  {
           this.currentActivity = ActivityType.PublicTransportation;
           break;
         }
+        case 'nightlife': {
+          this.currentActivity = ActivityType.Nightlife;
+          break;
+        }
       }
     });
   }

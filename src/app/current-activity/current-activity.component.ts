@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivityType } from "./activity-type.enum";
+import { ActivityType } from './activity-type.enum';
 
 @Component({
   selector: 'app-current-activity',
@@ -17,37 +17,42 @@ export class CurrentActivityComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    switch(this.activityType) {
+    switch (this.activityType) {
       case ActivityType.Dining: {
-        this.currentActivityIconPath = "https://kfir.dev/spainmedia/icons/dine.svg";
-        this.currentActivityTitle = "אוכל";
+        this.currentActivityIconPath = 'https://kfir.dev/spainmedia/icons/dine.svg';
+        this.currentActivityTitle = 'אוכל';
         break;
       }
 
       case ActivityType.Walking: {
-        this.currentActivityIconPath = "https://kfir.dev/spainmedia/icons/walk.svg";
-        this.currentActivityTitle = "מטייל";
+        this.currentActivityIconPath = 'https://kfir.dev/spainmedia/icons/walk.svg';
+        this.currentActivityTitle = 'מטייל';
         break;
       }
 
       case ActivityType.Flight: {
-        this.currentActivityIconPath = "https://kfir.dev/spainmedia/icons/airplane-takeoff.svg";
-        this.currentActivityTitle = "בטיסה";
+        this.currentActivityIconPath = 'https://kfir.dev/spainmedia/icons/airplane-takeoff.svg';
+        this.currentActivityTitle = 'בטיסה';
         break;
       }
 
       case ActivityType.PublicTransportation: {
-        this.currentActivityIconPath = "https://kfir.dev/spainmedia/icons/bus.svg";
-        this.currentActivityTitle = "תחבורה ציבורית";
+        this.currentActivityIconPath = 'https://kfir.dev/spainmedia/icons/bus.svg';
+        this.currentActivityTitle = 'תחבורה ציבורית';
         break;
       }
 
       case ActivityType.Sleeping: {
-        this.currentActivityIconPath = "https://kfir.dev/spainmedia/icons/sleep.svg";
-        this.currentActivityTitle = "ישן";
+        this.currentActivityIconPath = 'https://kfir.dev/spainmedia/icons/sleep.svg';
+        this.currentActivityTitle = 'ישן';
+        break;
+      }
+
+      case ActivityType.Nightlife: {
+        this.currentActivityIconPath = 'https://kfir.dev/spainmedia/icons/nightlife.svg';
+        this.currentActivityTitle = 'חיי לילה';
         break;
       }
     }
   }
-
 }
