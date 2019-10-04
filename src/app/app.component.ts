@@ -69,6 +69,14 @@ export class AppComponent  {
           this.currentActivity = ActivityType.Nightlife;
           break;
         }
+        case 'shopping': {
+          this.currentActivity = ActivityType.Shopping;
+          break;
+        }
+        case 'touring': {
+          this.currentActivity = ActivityType.Touring;
+          break;
+        }
       }
     });
   }

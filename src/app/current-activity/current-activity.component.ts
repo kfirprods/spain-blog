@@ -53,6 +53,18 @@ export class CurrentActivityComponent implements OnInit {
         this.currentActivityTitle = 'חיי לילה';
         break;
       }
+
+      case ActivityType.Shopping: {
+        this.currentActivityIconPath = 'https://kfir.dev/spainmedia/icons/shopping.svg';
+        this.currentActivityTitle = 'שופינג של קמצנים';
+        break;
+      }
+
+      case ActivityType.Touring: {
+        this.currentActivityIconPath = 'https://kfir.dev/spainmedia/icons/touring.svg';
+        this.currentActivityTitle = 'תיירות קלאסית';
+        break;
+      }
     }
   }
 }
