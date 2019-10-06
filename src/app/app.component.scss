@@ -35,3 +35,14 @@ section {
     margin: 25% 0;
   }
 }
+
+.mat-simple-snackbar {
+  font-size: 2.5em;
+  line-height: unset !important;
+  word-wrap: normal;
+  display: inline !important;
+}
+
+.mat-snack-bar-container {
+  max-width: 90vw !important;
+}

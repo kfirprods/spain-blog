@@ -1,6 +1,6 @@
 import { CookieService } from 'ngx-cookie-service';
 import { BlogPost } from './data-models/blog-post.type';
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { TripData } from './data-models/trip-data';
@@ -10,7 +10,8 @@ import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
-  styleUrls: [ './app.component.scss' ]
+  styleUrls: [ './app.component.scss' ],
+  encapsulation: ViewEncapsulation.None
 })
 @Injectable()
 export class AppComponent  {
@@ -60,10 +61,10 @@ export class AppComponent  {
       const unreadBlogPosts = this.blogPosts.filter(b => b.timestamp.getTime() > this.lastVisit.getTime());
 
       if (unreadBlogPosts.length > 0) {
-        snackbar.open(`נוספו ${unreadBlogPosts.length} פוסטים חדשים מאז הביקור האחרון שלך, בימים: ` +
+        snackbar.open(`נוספו ${unreadBlogPosts.length} פוסטים חדשים מאז הביקור האחרון שלך בימים: ` +
                       `${unreadBlogPosts.map(b => b.day).sort().filter((item, pos, ary) =>
                         !pos || item !== ary[pos - 1]).join(', ')}`, null,
-                        { duration: 7500, direction: 'rtl' });
+                        { duration: 0, direction: 'rtl' });
       }
 
       switch (this.tripData.currentActivity) {
