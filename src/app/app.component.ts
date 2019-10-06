@@ -64,7 +64,7 @@ export class AppComponent  {
         snackbar.open(`נוספו ${unreadBlogPosts.length} פוסטים חדשים מאז הביקור האחרון שלך בימים: ` +
                       `${unreadBlogPosts.map(b => b.day).sort().filter((item, pos, ary) =>
                         !pos || item !== ary[pos - 1]).join(', ')}`, null,
-                        { duration: 0, direction: 'rtl' });
+                        { duration: 7500, direction: 'rtl' });
       }
 
       switch (this.tripData.currentActivity) {
