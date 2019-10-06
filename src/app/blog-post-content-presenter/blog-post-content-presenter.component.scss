@@ -4,6 +4,12 @@
   display: inline;
 }
 
-.content-paragraph {
+.hebrew-content-paragraph {
   margin: 1em 0;
+  direction: rtl;
+}
+
+.english-content-paragraph {
+  margin: 1em 0;
+  direction: ltr;
 }

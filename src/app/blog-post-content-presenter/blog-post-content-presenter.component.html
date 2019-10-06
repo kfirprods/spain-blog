@@ -1,5 +1,5 @@
 <p *ngFor="let paragraph of content.paragraphs"
-   class="content-paragraph">
+   [ngClass]="paragraph.direction === 'ltr' ? 'english-content-paragraph' : 'hebrew-content-paragraph'">
   <app-blog-media-presenter *ngIf="paragraph.media !== undefined"
                             [media]="paragraph.media"
                             class="inline-media">
