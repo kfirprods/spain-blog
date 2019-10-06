@@ -8,6 +8,8 @@ import { MatVideoModule } from 'mat-video';
 import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { GalleryModule } from '@ks89/angular-modal-gallery';
+import { CookieService } from 'ngx-cookie-service';
+import { MatSnackBarModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { ProgressBarDotsComponent } from './progress-bar-dots/progress-bar-dots.component';
@@ -22,11 +24,11 @@ import { BlogMediaPresenterComponent } from './blog-media-presenter/blog-media-p
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpClientModule, AngularSvgIconModule, BrowserAnimationsModule, MatVideoModule,
-                  NgxYoutubePlayerModule.forRoot(), GalleryModule.forRoot() ],
+                  NgxYoutubePlayerModule.forRoot(), GalleryModule.forRoot(), MatSnackBarModule ],
   declarations: [ AppComponent, ProgressBarDotsComponent, DaysProgressionComponent,
                   CurrentActivityComponent, BlogPostsComponent, TimestampPresenterComponent, BlogPostContentPresenterComponent,
                   BlogMediaPresenterComponent],
   bootstrap:    [ AppComponent ],
-  providers:    httpInterceptorProviders
+  providers:    [httpInterceptorProviders, CookieService]
 })
 export class AppModule { }

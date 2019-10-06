@@ -1,8 +1,11 @@
+import { CookieService } from 'ngx-cookie-service';
 import { BlogPost } from './data-models/blog-post.type';
 import { Component, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 import { TripData } from './data-models/trip-data';
 import { ActivityType } from './current-activity/activity-type.enum';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'my-app',
@@ -20,12 +23,23 @@ export class AppComponent  {
   absoluteCurrentDay: number;
   isLoadingData: boolean;
 
-  constructor(private http: HttpClient) {
+  lastVisit: Date;
+  unreadBlogPosts: Array<BlogPost>;
+
+  constructor(private http: HttpClient, private cookieService: CookieService, private snackbar: MatSnackBar) {
     this.tripData = null;
 
     this.isLoadingData = true;
 
     this.http.get('https://kfir.dev:3000/spain/tripdata').subscribe((data: TripData) => {
+      if (this.cookieService.check('last-visit')) {
+        this.lastVisit = new Date(+this.cookieService.get('last-visit'));
+      } else {
+        this.lastVisit = new Date(Date.now());
+      }
+
+      this.cookieService.set('last-visit', `${Date.now()}`);
+
       this.isLoadingData = false;
       this.tripData = data;
 
@@ -43,6 +57,14 @@ export class AppComponent  {
       }
 
       this.blogPosts = data.blogPosts;
+      const unreadBlogPosts = this.blogPosts.filter(b => b.timestamp.getTime() > this.lastVisit.getTime());
+
+      if (unreadBlogPosts.length > 0) {
+        snackbar.open(`נוספו ${unreadBlogPosts.length} פוסטים חדשים מאז הביקור האחרון שלך, בימים: ` +
+                      `${unreadBlogPosts.map(b => b.day).sort().filter((item, pos, ary) =>
+                        !pos || item !== ary[pos - 1]).join(', ')}`, null,
+                        { duration: 7500, direction: 'rtl' });
+      }
 
       switch (this.tripData.currentActivity) {
         case 'walking': {
