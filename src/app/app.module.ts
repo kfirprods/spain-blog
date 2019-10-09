@@ -1,3 +1,4 @@
+import { AppRoutingModule } from './app-routing.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -21,13 +22,16 @@ import { BlogPostsComponent } from './blog-posts/blog-posts.component';
 import { TimestampPresenterComponent } from './timestamp-presenter/timestamp-presenter.component';
 import { BlogPostContentPresenterComponent } from './blog-post-content-presenter/blog-post-content-presenter.component';
 import { BlogMediaPresenterComponent } from './blog-media-presenter/blog-media-presenter.component';
+import { MainViewComponent } from './main-view-component/main-view-component';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, HttpClientModule, AngularSvgIconModule, BrowserAnimationsModule, MatVideoModule,
+  imports:      [ BrowserModule, FormsModule, HttpClientModule, AppRoutingModule,
+                  AngularSvgIconModule, BrowserAnimationsModule, MatVideoModule,
                   NgxYoutubePlayerModule.forRoot(), GalleryModule.forRoot(), MatSnackBarModule ],
   declarations: [ AppComponent, ProgressBarDotsComponent, DaysProgressionComponent,
                   CurrentActivityComponent, BlogPostsComponent, TimestampPresenterComponent, BlogPostContentPresenterComponent,
-                  BlogMediaPresenterComponent],
+                  BlogMediaPresenterComponent,
+                  MainViewComponent],
   bootstrap:    [ AppComponent ],
   providers:    [httpInterceptorProviders, CookieService]
 })

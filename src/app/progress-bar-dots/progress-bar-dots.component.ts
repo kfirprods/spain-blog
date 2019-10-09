@@ -19,6 +19,8 @@ export class ProgressBarDotsComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.currentProgress);
+
     if (this.currentProgress > this.total) {
       this.currentProgress = this.total;
     }
