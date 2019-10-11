@@ -100,6 +100,10 @@ export class AppComponent  {
           this.currentActivity = ActivityType.Touring;
           break;
         }
+        case 'tripover': {
+          this.currentActivity = ActivityType.TripOver;
+          break;
+        }
       }
     });
   }
