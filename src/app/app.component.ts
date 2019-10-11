@@ -44,16 +44,16 @@ export class AppComponent  {
       this.isLoadingData = false;
       this.tripData = data;
 
-      const totalTripDays = Math.ceil(
+      const totalTripDays = Math.floor(
         (this.tripData.tripDuration.tripEnd.getTime() - this.tripData.tripDuration.tripStart.getTime()) / (1000 * 60 * 60 * 24)
       );
 
-      this.currentDay = Math.ceil(
+      this.currentDay = Math.floor(
         ((new Date()).getTime() - this.tripData.tripDuration.tripStart.getTime()) / (1000 * 60 * 60 * 24)
       );
       this.absoluteCurrentDay = this.currentDay;
 
-      if (this.currentDay > totalTripDays) {
+      if (new Date().getTime() > this.tripData.tripDuration.tripEnd.getTime()) {
         this.currentDay = totalTripDays;
       }
 
