@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { BlogPost } from './data-models/blog-post.type';
 import { Component, Injectable, ViewEncapsulation } from '@angular/core';
@@ -6,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { TripData } from './data-models/trip-data';
 import { ActivityType } from './current-activity/activity-type.enum';
 import { MatSnackBar } from '@angular/material';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'my-app',
@@ -19,7 +21,7 @@ export class AppComponent  {
 
   tripData: TripData;
   currentActivity: ActivityType;
-  blogPosts: Array<BlogPost>;
+  blogPosts: Observable<BlogPost[]>;
   currentDay: number;
   absoluteCurrentDay: number;
   isLoadingData: boolean;
@@ -27,12 +29,25 @@ export class AppComponent  {
   lastVisit: Date;
   unreadBlogPosts: Array<BlogPost>;
 
-  constructor(private http: HttpClient, private cookieService: CookieService, private snackbar: MatSnackBar) {
+  constructor(private db: AngularFirestore, private cookieService: CookieService, private snackbar: MatSnackBar) {
     this.tripData = null;
 
     this.isLoadingData = true;
 
-    this.http.get('https://kfir.dev:3000/spain/tripdata').subscribe((data: TripData) => {
+
+    this.blogPosts = db.collection<BlogPost>('/posts').valueChanges();
+
+    const unreadBlogPosts = this.blogPosts.filter(b => b.timestamp.getTime() > this.lastVisit.getTime());
+
+    if (unreadBlogPosts.length > 0) {
+      snackbar.open(`נוספו ${unreadBlogPosts.length} פוסטים חדשים מאז הביקור האחרון שלך בימים: ` +
+                    `${unreadBlogPosts.map(b => b.day).sort().filter((item, pos, ary) =>
+                      !pos || item !== ary[pos - 1]).join(', ')}`, null,
+                      { duration: 7500, direction: 'rtl' });
+    }
+
+
+    db.doc<TripData>('/metadata/main').valueChanges().pipe(data: TripData => {
       if (this.cookieService.check('last-visit')) {
         this.lastVisit = new Date(+this.cookieService.get('last-visit'));
       } else {
@@ -55,16 +70,6 @@ export class AppComponent  {
 
       if (this.currentDay > totalTripDays) {
         this.currentDay = totalTripDays;
-      }
-
-      this.blogPosts = data.blogPosts;
-      const unreadBlogPosts = this.blogPosts.filter(b => b.timestamp.getTime() > this.lastVisit.getTime());
-
-      if (unreadBlogPosts.length > 0) {
-        snackbar.open(`נוספו ${unreadBlogPosts.length} פוסטים חדשים מאז הביקור האחרון שלך בימים: ` +
-                      `${unreadBlogPosts.map(b => b.day).sort().filter((item, pos, ary) =>
-                        !pos || item !== ary[pos - 1]).join(', ')}`, null,
-                        { duration: 7500, direction: 'rtl' });
       }
 
       switch (this.tripData.currentActivity) {
