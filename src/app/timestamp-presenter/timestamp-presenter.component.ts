@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { firestore } from 'firebase';
 
 @Component({
   selector: 'app-timestamp-presenter',
@@ -7,14 +8,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TimestampPresenterComponent implements OnInit {
   @Input()
-  timestamp: Date;
+  timestamp: firestore.Timestamp;
 
   timespanDescription: string;
 
   constructor() { }
 
   ngOnInit() {
-    const diff = (new Date().getTime() - this.timestamp.getTime()) / 1000;
+    const diff = (new Date().getTime() - this.timestamp.toDate().getTime()) / 1000;
     const hourDifference = Math.floor(diff / (60 * 60));
     const daysDifference = Math.floor(diff / (60 * 60 * 24));
 

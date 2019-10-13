@@ -1,4 +1,6 @@
+import { firestore } from 'firebase';
+
 export interface TripDuration {
-  tripStart: Date;
-  tripEnd: Date;
+  tripStart: firestore.Timestamp;
+  tripEnd: firestore.Timestamp;
 }

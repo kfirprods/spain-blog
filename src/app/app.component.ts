@@ -21,7 +21,7 @@ export class AppComponent  {
 
   tripData: TripData;
   currentActivity: ActivityType;
-  blogPosts: Observable<BlogPost[]>;
+  blogPosts: Array<BlogPost>;
   currentDay: number;
   absoluteCurrentDay: number;
   isLoadingData: boolean;
@@ -34,41 +34,42 @@ export class AppComponent  {
 
     this.isLoadingData = true;
 
-
-    this.blogPosts = db.collection<BlogPost>('/posts').valueChanges();
-
-    const unreadBlogPosts = this.blogPosts.filter(b => b.timestamp.getTime() > this.lastVisit.getTime());
-
-    if (unreadBlogPosts.length > 0) {
-      snackbar.open(`נוספו ${unreadBlogPosts.length} פוסטים חדשים מאז הביקור האחרון שלך בימים: ` +
-                    `${unreadBlogPosts.map(b => b.day).sort().filter((item, pos, ary) =>
-                      !pos || item !== ary[pos - 1]).join(', ')}`, null,
-                      { duration: 7500, direction: 'rtl' });
+    if (this.cookieService.check('last-visit')) {
+      this.lastVisit = new Date(+this.cookieService.get('last-visit'));
+    } else {
+      this.lastVisit = new Date(Date.now());
     }
 
+    db.collection<BlogPost>('/posts').valueChanges().subscribe(posts => {
+      this.blogPosts = posts;
+      console.log(this.blogPosts);
+      const unreadBlogPosts = posts.filter(b => b.timestamp.toDate().getTime() > this.lastVisit.getTime());
 
-    db.doc<TripData>('/metadata/main').valueChanges().pipe(data: TripData => {
-      if (this.cookieService.check('last-visit')) {
-        this.lastVisit = new Date(+this.cookieService.get('last-visit'));
-      } else {
-        this.lastVisit = new Date(Date.now());
+      if (unreadBlogPosts.length > 0) {
+        snackbar.open(`נוספו ${unreadBlogPosts.length} פוסטים חדשים מאז הביקור האחרון שלך בימים: ` +
+                      `${unreadBlogPosts.map(b => b.day).sort().filter((item, pos, ary) =>
+                        !pos || item !== ary[pos - 1]).join(', ')}`, null,
+                        { duration: 7500, direction: 'rtl' });
       }
+    });
 
+    db.collection('metadata').doc<TripData>('main').valueChanges().subscribe(data => {
       this.cookieService.set('last-visit', `${Date.now()}`);
 
       this.isLoadingData = false;
       this.tripData = data;
 
       const totalTripDays = Math.floor(
-        (this.tripData.tripDuration.tripEnd.getTime() - this.tripData.tripDuration.tripStart.getTime()) / (1000 * 60 * 60 * 24)
+        (this.tripData.tripDuration.tripEnd.toDate().getTime() -
+        this.tripData.tripDuration.tripStart.toDate().getTime()) / (1000 * 60 * 60 * 24)
       );
 
       this.currentDay = Math.floor(
-        ((new Date()).getTime() - this.tripData.tripDuration.tripStart.getTime()) / (1000 * 60 * 60 * 24)
+        ((new Date()).getTime() - this.tripData.tripDuration.tripStart.toDate().getTime()) / (1000 * 60 * 60 * 24)
       );
       this.absoluteCurrentDay = this.currentDay;
 
-      if (new Date().getTime() > this.tripData.tripDuration.tripEnd.getTime()) {
+      if (new Date().getTime() > this.tripData.tripDuration.tripEnd.toDate().getTime()) {
         this.currentDay = totalTripDays;
       }
 
