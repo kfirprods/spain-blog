@@ -51,11 +51,12 @@ export class AppComponent  {
       this.currentDay = Math.floor(
         ((new Date()).getTime() - this.tripData.tripDuration.tripStart.getTime()) / (1000 * 60 * 60 * 24)
       );
-      this.absoluteCurrentDay = this.currentDay;
 
       if (new Date().getTime() > this.tripData.tripDuration.tripEnd.getTime()) {
         this.currentDay = totalTripDays;
       }
+
+      this.absoluteCurrentDay = this.currentDay;
 
       this.blogPosts = data.blogPosts;
       const unreadBlogPosts = this.blogPosts.filter(b => b.timestamp.getTime() > this.lastVisit.getTime());
