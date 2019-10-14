@@ -67,12 +67,11 @@ export class AppComponent  {
       this.currentDay = Math.floor(
         ((new Date()).getTime() - this.tripData.tripDuration.tripStart.toDate().getTime()) / (1000 * 60 * 60 * 24)
       );
-      this.absoluteCurrentDay = this.currentDay;
-
+      
       if (new Date().getTime() > this.tripData.tripDuration.tripEnd.toDate().getTime()) {
         this.currentDay = totalTripDays;
       }
-
+      this.absoluteCurrentDay = this.currentDay;
       switch (this.tripData.currentActivity) {
         case 'walking': {
           this.currentActivity = ActivityType.Walking;
