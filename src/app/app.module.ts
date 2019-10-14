@@ -22,13 +22,40 @@ import { TimestampPresenterComponent } from './timestamp-presenter/timestamp-pre
 import { BlogPostContentPresenterComponent } from './blog-post-content-presenter/blog-post-content-presenter.component';
 import { BlogMediaPresenterComponent } from './blog-media-presenter/blog-media-presenter.component';
 
+
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCBZeQwyOfiAQuVKLNWlZIl3mHCThnAW7o",
+  authDomain: "spain-blog.firebaseapp.com",
+  databaseURL: "https://spain-blog.firebaseio.com",
+  projectId: "spain-blog",
+  storageBucket: "spain-blog.appspot.com",
+  messagingSenderId: "818568752498",
+  appId: "1:818568752498:web:52e1890bf35c072afec1eb",
+  measurementId: "G-M37L6L4QNX"
+};
+
+
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, HttpClientModule, AngularSvgIconModule, BrowserAnimationsModule, MatVideoModule,
-                  NgxYoutubePlayerModule.forRoot(), GalleryModule.forRoot(), MatSnackBarModule ],
-  declarations: [ AppComponent, ProgressBarDotsComponent, DaysProgressionComponent,
-                  CurrentActivityComponent, BlogPostsComponent, TimestampPresenterComponent, BlogPostContentPresenterComponent,
-                  BlogMediaPresenterComponent],
-  bootstrap:    [ AppComponent ],
-  providers:    [httpInterceptorProviders, CookieService]
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    AngularSvgIconModule,
+    BrowserAnimationsModule,
+    MatVideoModule,
+    NgxYoutubePlayerModule.forRoot(),
+    GalleryModule.forRoot(),
+    MatSnackBarModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule
+  ],
+  declarations: [AppComponent, ProgressBarDotsComponent, DaysProgressionComponent,
+    CurrentActivityComponent, BlogPostsComponent, TimestampPresenterComponent, BlogPostContentPresenterComponent,
+    BlogMediaPresenterComponent],
+  bootstrap: [AppComponent],
+  providers: [httpInterceptorProviders, CookieService]
 })
 export class AppModule { }

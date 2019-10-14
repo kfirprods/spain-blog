@@ -19,7 +19,7 @@ export class DaysProgressionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.totalDayCount = this.getDayDiff(this.data.tripEnd, this.data.tripStart);
+    this.totalDayCount = this.getDayDiff(this.data.tripEnd.toDate(), this.data.tripStart.toDate());
   }
 
   getDayDiff(date1: Date, date2: Date) {
