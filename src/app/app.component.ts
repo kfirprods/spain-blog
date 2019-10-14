@@ -41,7 +41,13 @@ export class AppComponent  {
     }
 
     db.collection<BlogPost>('/posts').valueChanges().subscribe(posts => {
-      this.blogPosts = posts;
+      this.blogPosts = posts.sort((post1, post2) => {
+        if (post1.timestamp.seconds < post2.timestamp.seconds) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
       console.log(this.blogPosts);
       const unreadBlogPosts = posts.filter(b => b.timestamp.toDate().getTime() > this.lastVisit.getTime());
 
@@ -67,7 +73,7 @@ export class AppComponent  {
       this.currentDay = Math.floor(
         ((new Date()).getTime() - this.tripData.tripDuration.tripStart.toDate().getTime()) / (1000 * 60 * 60 * 24)
       );
-      
+
       if (new Date().getTime() > this.tripData.tripDuration.tripEnd.toDate().getTime()) {
         this.currentDay = totalTripDays;
       }
