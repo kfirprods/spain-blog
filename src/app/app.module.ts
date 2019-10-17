@@ -25,6 +25,7 @@ import { BlogMediaPresenterComponent } from './components/blog-media-presenter/b
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCBZeQwyOfiAQuVKLNWlZIl3mHCThnAW7o",
@@ -50,7 +51,8 @@ const firebaseConfig = {
     GalleryModule.forRoot(),
     MatSnackBarModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   declarations: [AppComponent, ProgressBarDotsComponent, DaysProgressionComponent,
     CurrentActivityComponent, BlogPostsComponent, TimestampPresenterComponent, BlogPostContentPresenterComponent,
