@@ -29,6 +29,8 @@ export class MainViewComponent implements OnInit {
   lastVisit: Date;
   unreadBlogPosts: Array<BlogPost>;
 
+  private totalTripDays: number;
+
   constructor(private tripDataService: TripDataService, private blogPostsService: BlogPostsService,
               private activatedRoute: ActivatedRoute, private router: Router,
               private cookieService: CookieService, private snackbar: MatSnackBar) {
@@ -73,7 +75,7 @@ export class MainViewComponent implements OnInit {
       this.isLoadingData = false;
       this.tripData = data;
 
-      const totalTripDays = Math.floor(
+      this.totalTripDays = Math.floor(
         (this.tripData.tripDuration.tripEnd.toDate().getTime() -
         this.tripData.tripDuration.tripStart.toDate().getTime()) / (1000 * 60 * 60 * 24)
       );
@@ -83,7 +85,7 @@ export class MainViewComponent implements OnInit {
       );
 
       if (new Date().getTime() > this.tripData.tripDuration.tripEnd.toDate().getTime()) {
-        currentDay = totalTripDays;
+        currentDay = this.totalTripDays;
       }
 
       this.absoluteCurrentDay = currentDay;
@@ -129,7 +131,19 @@ export class MainViewComponent implements OnInit {
     });
 
     this.currentDay$ = this.activatedRoute.paramMap.pipe(
-      switchMap((params: ParamMap) => of(+params.get('day')))
+      switchMap((params: ParamMap) => {
+        if (params.has('day')) {
+          let day = +params.get('day');
+          if (day < 1) {
+            day = 1;
+          } else if (day > this.totalTripDays) {
+            day = this.totalTripDays;
+          }
+          return of(day);
+        } else {
+          return of(this.absoluteCurrentDay);
+        }
+      })
     );
   }
 }
