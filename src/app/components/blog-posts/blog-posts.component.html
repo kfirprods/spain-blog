@@ -1,5 +1,5 @@
 <div *ngFor="let post of posts">
-  <div *ngIf="post.day === currentDay" class="blog-post-container">
+  <div *ngIf="post.day === (currentDay | async)" class="blog-post-container">
     <h4>
       <app-timestamp-presenter [timestamp]="post.timestamp">
       </app-timestamp-presenter>

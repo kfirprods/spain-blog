@@ -65,6 +65,12 @@ export class CurrentActivityComponent implements OnInit {
         this.currentActivityTitle = 'תיירות קלאסית';
         break;
       }
+
+      case ActivityType.TripOver: {
+        this.currentActivityIconPath = 'https://kfir.dev/spainmedia/icons/check.svg';
+        this.currentActivityTitle = 'הטיול נגמר';
+        break;
+      }
     }
   }
 }

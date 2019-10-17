@@ -1,12 +1,15 @@
+import { BlogPostsService } from './../services/blog-posts.service';
+import { TripDataService } from './../services/trip-data.service';
 import { CookieService } from 'ngx-cookie-service';
-import { BlogPost } from '../data-models/blog-post.type';
-import { Component, Injectable, ViewEncapsulation, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { BlogPost } from '../models/blog-post.type';
+import { Component, OnInit } from '@angular/core';
 
-import { TripData } from '../data-models/trip-data';
-import { ActivityType } from '../current-activity/activity-type.enum';
+import { TripData } from '../models/trip-data';
+import { ActivityType } from '../components/current-activity/activity-type.enum';
 import { MatSnackBar } from '@angular/material';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-main-view-component',
@@ -19,18 +22,25 @@ export class MainViewComponent implements OnInit {
   tripData: TripData;
   currentActivity: ActivityType;
   blogPosts: Array<BlogPost>;
-  currentDay: number;
+  currentDay$: Observable<number>;
   absoluteCurrentDay: number;
   isLoadingData: boolean;
 
   lastVisit: Date;
   unreadBlogPosts: Array<BlogPost>;
 
-  constructor(private http: HttpClient, private cookieService: CookieService, private snackbar: MatSnackBar,
-              private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(private tripDataService: TripDataService, private blogPostsService: BlogPostsService,
+              private activatedRoute: ActivatedRoute, private router: Router,
+              private cookieService: CookieService, private snackbar: MatSnackBar) {
     this.tripData = null;
 
     this.isLoadingData = true;
+
+    if (this.cookieService.check('last-visit')) {
+      this.lastVisit = new Date(+this.cookieService.get('last-visit'));
+    } else {
+      this.lastVisit = new Date(Date.now());
+    }
   }
 
   changeCurrentDay(selectedDay: number) {
@@ -38,38 +48,16 @@ export class MainViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get('https://kfir.dev:3000/spain/tripdata').subscribe((data: TripData) => {
-      if (this.cookieService.check('last-visit')) {
-        this.lastVisit = new Date(+this.cookieService.get('last-visit'));
-      } else {
-        this.lastVisit = new Date(Date.now());
-      }
+    this.blogPostsService.getBlogPosts().subscribe(posts => {
+      this.blogPosts = posts.sort((post1, post2) => {
+        if (post1.timestamp.seconds < post2.timestamp.seconds) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
 
-      this.cookieService.set('last-visit', `${Date.now()}`);
-
-      this.isLoadingData = false;
-      this.tripData = data;
-
-      const totalTripDays = Math.floor(
-        (this.tripData.tripDuration.tripEnd.getTime() - this.tripData.tripDuration.tripStart.getTime()) / (1000 * 60 * 60 * 24)
-      );
-
-      this.absoluteCurrentDay = Math.ceil(
-        ((new Date()).getTime() - this.tripData.tripDuration.tripStart.getTime()) / (1000 * 60 * 60 * 24));
-
-      if (this.activatedRoute.snapshot.paramMap.has('day')) {
-        this.currentDay = +this.activatedRoute.snapshot.paramMap.get('day');
-      } else {
-        this.currentDay = this.absoluteCurrentDay;
-      }
-
-      if (this.currentDay > totalTripDays) {
-        this.currentDay = totalTripDays;
-        this.absoluteCurrentDay = totalTripDays;
-      }
-
-      this.blogPosts = data.blogPosts;
-      const unreadBlogPosts = this.blogPosts.filter(b => b.timestamp.getTime() > this.lastVisit.getTime());
+      const unreadBlogPosts = posts.filter(b => b.timestamp.toDate().getTime() > this.lastVisit.getTime());
 
       if (unreadBlogPosts.length > 0) {
         this.snackbar.open(`נוספו ${unreadBlogPosts.length} פוסטים חדשים מאז הביקור האחרון שלך בימים: ` +
@@ -77,6 +65,28 @@ export class MainViewComponent implements OnInit {
                         !pos || item !== ary[pos - 1]).join(', ')}`, null,
                         { duration: 7500, direction: 'rtl' });
       }
+    });
+
+    this.tripDataService.getTripData().subscribe(data => {
+      this.cookieService.set('last-visit', `${Date.now()}`);
+
+      this.isLoadingData = false;
+      this.tripData = data;
+
+      const totalTripDays = Math.floor(
+        (this.tripData.tripDuration.tripEnd.toDate().getTime() -
+        this.tripData.tripDuration.tripStart.toDate().getTime()) / (1000 * 60 * 60 * 24)
+      );
+
+      let currentDay = Math.floor(
+        ((new Date()).getTime() - this.tripData.tripDuration.tripStart.toDate().getTime()) / (1000 * 60 * 60 * 24)
+      );
+
+      if (new Date().getTime() > this.tripData.tripDuration.tripEnd.toDate().getTime()) {
+        currentDay = totalTripDays;
+      }
+
+      this.absoluteCurrentDay = currentDay;
 
       switch (this.tripData.currentActivity) {
         case 'walking': {
@@ -111,12 +121,15 @@ export class MainViewComponent implements OnInit {
           this.currentActivity = ActivityType.Touring;
           break;
         }
+        case 'tripover': {
+          this.currentActivity = ActivityType.TripOver;
+          break;
+        }
       }
     });
 
-    this.activatedRoute.params.subscribe(params => {
-      this.currentDay = params.day;
-      console.log('Day changed');
-    });
+    this.currentDay$ = this.activatedRoute.paramMap.pipe(
+      switchMap((params: ParamMap) => of(+params.get('day')))
+    );
   }
 }

@@ -6,5 +6,6 @@ export enum ActivityType {
   Sleeping,
   Nightlife,
   Shopping,
-  Touring
+  Touring,
+  TripOver
 }

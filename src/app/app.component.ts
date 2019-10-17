@@ -7,6 +7,5 @@ import { Component, Injectable, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 @Injectable()
-export class AppComponent  {
-
+export class AppComponent {
 }

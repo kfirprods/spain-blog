@@ -1,7 +1,7 @@
 <div class="container">
   <span class="dot checked-dot darkened-dot"
         *ngFor="let progressDot of progressDots"
-        [className]="progressDot === selectedProgress ? 'dot checked-dot' : (progressDot <= currentProgress ? 'dot checked-dot darkened-dot' : 'dot unchecked-dot')"
+        [className]="progressDot === currentSelectedProgress ? 'dot checked-dot' : (progressDot <= currentProgress ? 'dot checked-dot darkened-dot' : 'dot unchecked-dot')"
         [title]="progressDot"
         (click)="handleDotClick(progressDot)">
   </span>

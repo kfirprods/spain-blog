@@ -1,3 +1,4 @@
+import { Observable, of } from 'rxjs';
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
@@ -7,7 +8,9 @@ import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 })
 export class ProgressBarDotsComponent implements OnInit {
   @Input() currentProgress: number;
-  @Input() selectedProgress: number;
+  @Input() selectedProgress: Observable<number>;
+
+  currentSelectedProgress: number;
 
   @Input() total: number;
 
@@ -19,14 +22,15 @@ export class ProgressBarDotsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.currentProgress);
-
     if (this.currentProgress > this.total) {
       this.currentProgress = this.total;
     }
 
     this.progressDots = Array(Number(this.total) - 1).fill(0).map((x, i) => i + 1);
-    this.selectedProgress = this.currentProgress;
+
+    this.selectedProgress.subscribe(newSelection => {
+      this.currentSelectedProgress = newSelection;
+    });
   }
 
   handleDotClick(dotNumber: number) {

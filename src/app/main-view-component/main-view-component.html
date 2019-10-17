@@ -2,7 +2,7 @@
   <!-- Header: Trip progress and current activity -->
   <section class='header'>
     <app-days-progression [data]="tripData.tripDuration"
-                          [currentDay]="currentDay"
+                          [currentDay]="currentDay$"
                           [absoluteCurrentDay]="absoluteCurrentDay"
                           (dotClicked)="changeCurrentDay($event)">
     </app-days-progression>
@@ -14,7 +14,7 @@
   <!-- Content: Blog posts from this day -->
   <section>
     <app-blog-posts [posts]="blogPosts"
-                    [currentDay]="currentDay">
+                    [currentDay]="currentDay$">
     </app-blog-posts>
   </section>
 </div>

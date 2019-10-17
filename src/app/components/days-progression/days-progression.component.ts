@@ -1,5 +1,6 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TripDuration } from '../data-models/trip-duration';
+import { TripDuration } from '../../models/trip-duration';
 
 @Component({
   selector: 'app-days-progression',
@@ -9,7 +10,7 @@ import { TripDuration } from '../data-models/trip-duration';
 export class DaysProgressionComponent implements OnInit {
 
   @Input() data: TripDuration;
-  @Input() currentDay: number;
+  @Input() currentDay: Observable<number>;
   @Input() absoluteCurrentDay: number;
 
   @Output() dotClicked = new EventEmitter<number>();
@@ -19,12 +20,12 @@ export class DaysProgressionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.totalDayCount = this.getDayDiff(this.data.tripEnd, this.data.tripStart);
+    this.totalDayCount = this.getDayDiff(this.data.tripEnd.toDate(), this.data.tripStart.toDate());
   }
 
   getDayDiff(date1: Date, date2: Date) {
     const diffTime = date1.getTime() - date2.getTime();
-    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
   }
 
   onDotClicked(dayNumber: number) {
