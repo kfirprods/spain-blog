@@ -1,7 +1,7 @@
-import { GalleryImage } from './../data-models/gallery-image.type';
+import { GalleryImage } from '../../models/gallery-image.type';
 import { Component, OnInit, Input } from '@angular/core';
 
-import { BlogMedia } from './../data-models/blog-media.type';
+import { BlogMedia } from '../../models/blog-media.type';
 import { Image } from '@ks89/angular-modal-gallery';
 
 @Component({

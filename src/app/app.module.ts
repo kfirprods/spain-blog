@@ -12,15 +12,15 @@ import { CookieService } from 'ngx-cookie-service';
 import { MatSnackBarModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { ProgressBarDotsComponent } from './progress-bar-dots/progress-bar-dots.component';
-import { DaysProgressionComponent } from './days-progression/days-progression.component';
+import { ProgressBarDotsComponent } from './components/progress-bar-dots/progress-bar-dots.component';
+import { DaysProgressionComponent } from './components/days-progression/days-progression.component';
 
 import { httpInterceptorProviders } from './http-interceptors';
-import { CurrentActivityComponent } from './current-activity/current-activity.component';
-import { BlogPostsComponent } from './blog-posts/blog-posts.component';
-import { TimestampPresenterComponent } from './timestamp-presenter/timestamp-presenter.component';
-import { BlogPostContentPresenterComponent } from './blog-post-content-presenter/blog-post-content-presenter.component';
-import { BlogMediaPresenterComponent } from './blog-media-presenter/blog-media-presenter.component';
+import { CurrentActivityComponent } from './components/current-activity/current-activity.component';
+import { BlogPostsComponent } from './components/blog-posts/blog-posts.component';
+import { TimestampPresenterComponent } from './components/timestamp-presenter/timestamp-presenter.component';
+import { BlogPostContentPresenterComponent } from './components/blog-post-content-presenter/blog-post-content-presenter.component';
+import { BlogMediaPresenterComponent } from './components/blog-media-presenter/blog-media-presenter.component';
 
 
 import { AngularFireModule } from '@angular/fire';

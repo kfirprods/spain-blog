@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TripDuration } from '../data-models/trip-duration';
+import { TripDuration } from '../../models/trip-duration';
 
 @Component({
   selector: 'app-days-progression',

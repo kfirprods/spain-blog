@@ -1,13 +1,12 @@
-import { Observable } from 'rxjs';
+import { BlogPostsService } from './services/blog-posts.service';
+import { TripDataService } from './services/trip-data.service';
 import { CookieService } from 'ngx-cookie-service';
-import { BlogPost } from './data-models/blog-post.type';
-import { Component, Injectable, ViewEncapsulation } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { BlogPost } from './models/blog-post.type';
+import { Component, Injectable, ViewEncapsulation, OnInit } from '@angular/core';
 
-import { TripData } from './data-models/trip-data';
-import { ActivityType } from './current-activity/activity-type.enum';
+import { TripData } from './models/trip-data';
+import { ActivityType } from './components/current-activity/activity-type.enum';
 import { MatSnackBar } from '@angular/material';
-import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'my-app',
@@ -16,7 +15,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
   encapsulation: ViewEncapsulation.None
 })
 @Injectable()
-export class AppComponent  {
+export class AppComponent implements OnInit {
   name = 'Angular';
 
   tripData: TripData;
@@ -29,7 +28,8 @@ export class AppComponent  {
   lastVisit: Date;
   unreadBlogPosts: Array<BlogPost>;
 
-  constructor(private db: AngularFirestore, private cookieService: CookieService, private snackbar: MatSnackBar) {
+  constructor(private tripDataService: TripDataService, private blogPostsService: BlogPostsService,
+              private cookieService: CookieService, private snackbar: MatSnackBar) {
     this.tripData = null;
 
     this.isLoadingData = true;
@@ -39,8 +39,10 @@ export class AppComponent  {
     } else {
       this.lastVisit = new Date(Date.now());
     }
+  }
 
-    db.collection<BlogPost>('/posts').valueChanges().subscribe(posts => {
+  ngOnInit() {
+    this.blogPostsService.getBlogPosts().subscribe(posts => {
       this.blogPosts = posts.sort((post1, post2) => {
         if (post1.timestamp.seconds < post2.timestamp.seconds) {
           return -1;
@@ -52,14 +54,14 @@ export class AppComponent  {
       const unreadBlogPosts = posts.filter(b => b.timestamp.toDate().getTime() > this.lastVisit.getTime());
 
       if (unreadBlogPosts.length > 0) {
-        snackbar.open(`נוספו ${unreadBlogPosts.length} פוסטים חדשים מאז הביקור האחרון שלך בימים: ` +
+        this.snackbar.open(`נוספו ${unreadBlogPosts.length} פוסטים חדשים מאז הביקור האחרון שלך בימים: ` +
                       `${unreadBlogPosts.map(b => b.day).sort().filter((item, pos, ary) =>
                         !pos || item !== ary[pos - 1]).join(', ')}`, null,
                         { duration: 7500, direction: 'rtl' });
       }
     });
 
-    db.collection('metadata').doc<TripData>('main').valueChanges().subscribe(data => {
+    this.tripDataService.getTripData().subscribe(data => {
       this.cookieService.set('last-visit', `${Date.now()}`);
 
       this.isLoadingData = false;

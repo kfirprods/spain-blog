@@ -1,4 +1,4 @@
-import { BlogPostContent } from './../data-models/blog-post-content.type';
+import { BlogPostContent } from '../../models/blog-post-content.type';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

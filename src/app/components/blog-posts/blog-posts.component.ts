@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges, SimpleChange, OnChanges } from '@angular/core';
-import { BlogPost } from '../data-models/blog-post.type';
+import { BlogPost } from '../../models/blog-post.type';
 
 @Component({
   selector: 'app-blog-posts',
