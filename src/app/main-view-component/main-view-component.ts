@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
+import { DocumentChangeAction } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-main-view-component',

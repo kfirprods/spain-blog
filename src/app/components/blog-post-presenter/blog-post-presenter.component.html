@@ -1,0 +1,43 @@
+<div class="blog-post-container">
+  <h4>
+    <app-timestamp-presenter [timestamp]="post.timestamp">
+    </app-timestamp-presenter>
+  </h4>
+  <app-blog-media-presenter *ngIf="post.media !== undefined"
+                            [media]="post.media"
+                            class="post-header-media">
+  </app-blog-media-presenter>
+
+  <h2 *ngIf="!isEditingTitle">
+    <i>
+        {{ post.title }}
+    </i>
+
+    <button
+      *ngIf="auth.isAdmin$ | async"
+      (click)="editTitle()">Edit</button>
+  </h2>
+
+  <div class="titleEditorContainer"
+       *ngIf="isEditingTitle">
+    <input
+        class="titleEditorInput"
+        type="text"
+        [(ngModel)]="newTitle">
+
+    <button
+      (click)="applyTitleEdit()">
+      Apply
+    </button>
+
+    <button
+      (click)="cancelTitleEdit()">
+        Cancel
+    </button>
+  </div>
+
+  <div class="post-content">
+    <app-blog-post-content-presenter [content]="post.content">
+    </app-blog-post-content-presenter>
+  </div>
+</div>

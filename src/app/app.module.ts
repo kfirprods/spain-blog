@@ -1,4 +1,4 @@
-import { MainViewComponent } from './main-view-component/main-view-component';
+import { MainViewComponent } from "./main-view-component/main-view-component";
 import { AppRoutingModule } from "./app-routing.module";
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
@@ -12,6 +12,7 @@ import { AngularSvgIconModule } from "angular-svg-icon";
 import { GalleryModule } from "@ks89/angular-modal-gallery";
 import { CookieService } from "ngx-cookie-service";
 import { MatSnackBarModule } from "@angular/material";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 import { AppComponent } from "./app.component";
 import { ProgressBarDotsComponent } from "./components/progress-bar-dots/progress-bar-dots.component";
@@ -24,10 +25,11 @@ import { TimestampPresenterComponent } from "./components/timestamp-presenter/ti
 import { BlogPostContentPresenterComponent } from "./components/blog-post-content-presenter/blog-post-content-presenter.component";
 import { BlogMediaPresenterComponent } from "./components/blog-media-presenter/blog-media-presenter.component";
 
-
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from "@angular/fire";
+import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { LoginComponent } from "./components/login/login.component";
+import { BlogPostPresenterComponent } from "./components/blog-post-presenter/blog-post-presenter.component";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCBZeQwyOfiAQuVKLNWlZIl3mHCThnAW7o",
@@ -54,7 +56,8 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
     AppRoutingModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    FontAwesomeModule
   ],
   declarations: [
     AppComponent,
@@ -65,7 +68,9 @@ const firebaseConfig = {
     TimestampPresenterComponent,
     BlogPostContentPresenterComponent,
     BlogMediaPresenterComponent,
-    MainViewComponent
+    MainViewComponent,
+    LoginComponent,
+    BlogPostPresenterComponent
   ],
   bootstrap: [AppComponent],
   providers: [httpInterceptorProviders, CookieService]

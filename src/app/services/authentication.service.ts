@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AuthenticationService {
   user$: Observable<string>;
+  isAdmin$: Observable<boolean>;
 
   constructor(private afAuth: AngularFireAuth, private router: Router) {
     this.user$ = this.afAuth.authState.pipe(
@@ -18,10 +19,13 @@ export class AuthenticationService {
         if (user) {
           return of(user.uid);
         } else {
-          // Logged out
           return of(null);
         }
       })
+    );
+
+    this.isAdmin$ = this.user$.pipe(
+      switchMap(user => of(user === 'bTaj8WgQp3YhQfsdY3yt3l9l23f2'))
     );
   }
 

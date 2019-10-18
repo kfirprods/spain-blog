@@ -11,4 +11,7 @@ export interface BlogPost {
   media: BlogMedia;
 
   content: BlogPostContent;
+
+  /* This is the firestore id of the blog post */
+  id: string;
 }
