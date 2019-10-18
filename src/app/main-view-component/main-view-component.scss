@@ -32,3 +32,17 @@ section {
 .mat-snack-bar-container {
   max-width: 90vw !important;
 }
+
+#loading-container {
+  background: rgba(white, 0.4);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  text-align: center;
+
+  h1 {
+    margin: 25% 0;
+  }
+}
