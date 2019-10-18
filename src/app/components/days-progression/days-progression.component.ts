@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TripDuration } from '../../models/trip-duration';
 
@@ -9,7 +10,7 @@ import { TripDuration } from '../../models/trip-duration';
 export class DaysProgressionComponent implements OnInit {
 
   @Input() data: TripDuration;
-  @Input() currentDay: number;
+  @Input() currentDay: Observable<number>;
   @Input() absoluteCurrentDay: number;
 
   @Output() dotClicked = new EventEmitter<number>();
