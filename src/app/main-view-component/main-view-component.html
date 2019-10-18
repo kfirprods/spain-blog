@@ -1,0 +1,28 @@
+<div id="loading-container"
+     *ngIf="isLoadingData">
+  <h1>
+    טוען...
+  </h1>
+</div>
+
+
+<div id="main-app-container">
+  <!-- Header: Trip progress and current activity -->
+  <section class='header'>
+    <app-days-progression [data]="tripData.tripDuration"
+                          [currentDay]="currentDay$"
+                          [absoluteCurrentDay]="absoluteCurrentDay"
+                          (dotClicked)="changeCurrentDay($event)">
+    </app-days-progression>
+
+    <app-current-activity [activityType]="currentActivity">
+    </app-current-activity>
+  </section>
+
+  <!-- Content: Blog posts from this day -->
+  <section>
+    <app-blog-posts [posts]="blogPosts"
+                    [currentDay]="currentDay$">
+    </app-blog-posts>
+  </section>
+</div>
