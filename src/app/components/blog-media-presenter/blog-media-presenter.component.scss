@@ -21,3 +21,25 @@ youtube-player {
   display: flex;
   justify-content: flex-end;
 }
+
+.simple-media-editor-container {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 5px 2px;
+
+  a {
+    color: white;
+  }
+}
+
+.simple-media-editor-box-container {
+  display: flex;
+
+  a {
+    margin: 0px 5px;
+  }
+
+  input {
+    flex: 3;
+    direction: ltr;
+  }
+}

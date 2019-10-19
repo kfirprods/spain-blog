@@ -45,4 +45,8 @@ export class BlogPostPresenterComponent implements OnInit {
   cancelTitleEdit() {
     this.isEditingTitle = false;
   }
+
+  changeHeaderMediaSource() {
+    this.blogPostsService.updateBlogPost(this.post);
+  }
 }

@@ -5,7 +5,8 @@
   </h4>
   <app-blog-media-presenter *ngIf="post.media !== undefined"
                             [media]="post.media"
-                            class="post-header-media">
+                            class="post-header-media"
+                            (changeMediaSource)="changeHeaderMediaSource()">
   </app-blog-media-presenter>
 
   <h2 *ngIf="!isEditingTitle">
