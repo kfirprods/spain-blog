@@ -1,9 +1,34 @@
-<p *ngFor="let paragraph of content.paragraphs"
+<div *ngFor="let paragraph of post.content.paragraphs"
    [ngClass]="paragraph.direction === 'ltr' ? 'english-content-paragraph' : 'hebrew-content-paragraph'">
   <app-blog-media-presenter *ngIf="paragraph.media !== undefined"
                             [media]="paragraph.media"
                             class="inline-media">
   </app-blog-media-presenter>
 
-  {{paragraph.text}}
-</p>
+  <i *ngIf="editedParagraphId != paragraph.id">
+    {{paragraph.text}}
+
+    <a *ngIf="auth.isAdmin$ | async"
+        (click)="editParagraphText(paragraph)">
+      <fa-icon [icon]="faPen"></fa-icon>
+    </a>
+  </i>
+
+  <div
+    *ngIf="editedParagraphId == paragraph.id"
+    class="paragraph-editor-container">
+    <input
+      type="text"
+      class="paragraph-editor-input"
+      [(ngModel)]="newParagraphText">
+
+    <a (click)="applyParagraphEdit(paragraph)">
+      <fa-icon [icon]="faCheck"></fa-icon>
+    </a>
+
+    <a (click)="cancelParagraphEdit()">
+      <fa-icon [icon]="faTimes"></fa-icon>
+    </a>
+  </div>
+
+</div>

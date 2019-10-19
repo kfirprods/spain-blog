@@ -13,9 +13,10 @@
         {{ post.title }}
     </i>
 
-    <button
-      *ngIf="auth.isAdmin$ | async"
-      (click)="editTitle()">Edit</button>
+    <a *ngIf="auth.isAdmin$ | async"
+       (click)="editTitle()">
+      <fa-icon [icon]="faPen"></fa-icon>
+    </a>
   </h2>
 
   <div class="titleEditorContainer"
@@ -25,19 +26,17 @@
         type="text"
         [(ngModel)]="newTitle">
 
-    <button
-      (click)="applyTitleEdit()">
-      Apply
-    </button>
+    <a (click)="applyTitleEdit()">
+      <fa-icon [icon]="faCheck"></fa-icon>
+    </a>
 
-    <button
-      (click)="cancelTitleEdit()">
-        Cancel
-    </button>
+    <a (click)="cancelTitleEdit()">
+      <fa-icon [icon]="faTimes"></fa-icon>
+    </a>
   </div>
 
   <div class="post-content">
-    <app-blog-post-content-presenter [content]="post.content">
+    <app-blog-post-content-presenter [post]="post">
     </app-blog-post-content-presenter>
   </div>
 </div>

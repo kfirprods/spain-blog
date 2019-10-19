@@ -3,6 +3,8 @@ import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { BlogPost } from 'src/app/models/blog-post.type';
 
+import { faPen, faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-blog-post-presenter',
   templateUrl: './blog-post-presenter.component.html',
@@ -10,6 +12,12 @@ import { BlogPost } from 'src/app/models/blog-post.type';
 })
 export class BlogPostPresenterComponent implements OnInit {
   @Input() post: BlogPost;
+
+  /* icons for editing */
+  faPen = faPen;
+  faCheck = faCheck;
+  faTimes = faTimes;
+  /*                   */
 
   /* title editing */
   newTitle: string;

@@ -31,13 +31,19 @@ h2 {
   font-size: 3.5em;
   padding: 10px 0px;
   font-family: "Varela Round";
+  text-align: center;
 }
 
 .titleEditorContainer {
   display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    font-size: 3.5em;
+    margin: 0 0.2em;
+  }
 }
-
-
 
 h4 {
   font-size: 1.5em;
