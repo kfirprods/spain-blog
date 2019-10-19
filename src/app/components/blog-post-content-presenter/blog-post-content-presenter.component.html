@@ -5,14 +5,14 @@
                             class="inline-media">
   </app-blog-media-presenter>
 
-  <i *ngIf="editedParagraphId != paragraph.id">
+  <span *ngIf="editedParagraphId != paragraph.id">
     {{paragraph.text}}
 
     <a *ngIf="auth.isAdmin$ | async"
         (click)="editParagraphText(paragraph)">
       <fa-icon [icon]="faPen"></fa-icon>
     </a>
-  </i>
+  </span>
 
   <div
     *ngIf="editedParagraphId == paragraph.id"

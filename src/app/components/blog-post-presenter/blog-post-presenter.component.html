@@ -9,9 +9,9 @@
   </app-blog-media-presenter>
 
   <h2 *ngIf="!isEditingTitle">
-    <i>
+    <span>
         {{ post.title }}
-    </i>
+    </span>
 
     <a *ngIf="auth.isAdmin$ | async"
        (click)="editTitle()">
