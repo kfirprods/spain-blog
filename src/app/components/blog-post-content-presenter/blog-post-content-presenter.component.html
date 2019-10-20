@@ -2,7 +2,8 @@
    [ngClass]="paragraph.direction === 'ltr' ? 'english-content-paragraph' : 'hebrew-content-paragraph'">
   <app-blog-media-presenter *ngIf="paragraph.media !== undefined"
                             [media]="paragraph.media"
-                            class="inline-media">
+                            class="inline-media"
+                            (changeMediaSource)="changeInlineMediaSource()">
   </app-blog-media-presenter>
 
   <span *ngIf="editedParagraphId != paragraph.id">

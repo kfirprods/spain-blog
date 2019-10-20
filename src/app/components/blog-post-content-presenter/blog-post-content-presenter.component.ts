@@ -47,4 +47,8 @@ export class BlogPostContentPresenterComponent implements OnInit {
   cancelParagraphEdit() {
     this.editedParagraphId = null;
   }
+
+  changeInlineMediaSource() {
+    this.blogPostsService.updateBlogPost(this.post);
+  }
 }
