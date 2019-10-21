@@ -1,16 +1,25 @@
 <div>
-  <div class="simple-img-container">
-    <img *ngIf="media.type === 'image'" [src]="media.source" class="presented-img">
+  <div *ngIf="media.type !== 'gallery'">
+    <img
+      *ngIf="media.type === 'image'"
+      [src]="media.source"
+      class="presented-img"
+    />
 
     <mat-video *ngIf="media.type === 'video'" [src]="media.source"></mat-video>
 
-    <youtube-player *ngIf="media.type === 'youtube'"
-                    width="560" height="315" frameborder="0" allowfullscreen
-                    [videoId]="media.source"></youtube-player>
+    <youtube-player
+      *ngIf="media.type === 'youtube'"
+      width="560"
+      height="315"
+      frameborder="0"
+      allowfullscreen
+      [videoId]="media.source"
+    ></youtube-player>
 
     <div class="simple-media-editor-container" *ngIf="auth.isAdmin$ | async">
       <div *ngIf="!isEditingMedia">
-        <a (click)="editSimpleSource()">
+        <a (click)="editSource()">
           <fa-icon [icon]="faPen"></fa-icon>
 
           <strong>
@@ -19,30 +28,94 @@
         </a>
       </div>
 
-      <div
-        *ngIf="isEditingMedia"
-        class="simple-media-editor-box-container">
-        <input
-          type="text"
-          [(ngModel)]="newSimpleSource">
+      <div *ngIf="isEditingMedia" class="simple-media-editor-box-container">
+        <div class="row">
+          <input class="english-input" type="text" [(ngModel)]="newSource" />
+        </div>
 
-        <a (click)="applySimpleSourceEdit()">
-          <fa-icon [icon]="faCheck"></fa-icon>
-        </a>
+        <div class="row">
+          <a (click)="applySourceEdit()">
+            <fa-icon [icon]="faCheck"></fa-icon>
+          </a>
 
-        <a (click)="cancelSimpleSourceEdit()">
-          <fa-icon [icon]="faTimes"></fa-icon>
-        </a>
+          <a (click)="cancelSourceEdit()">
+            <fa-icon [icon]="faTimes"></fa-icon>
+          </a>
+      </div>
       </div>
     </div>
   </div>
 
-  <ks-carousel *ngIf="media.type === 'gallery'"
-                [previewConfig]="{size: {height: '100px'}}"
-                [carouselImageConfig]="{description: {strategy: 2}}"
-                [carouselConfig]="{showArrows: false, maxHeight: '600px'}"
-                [dotsConfig]="{visible: false}"
-                [id]="0"
-                [images]="galleryImages"
-                class="image-carousel"></ks-carousel>
+  <div *ngIf="media.type === 'gallery'">
+    <ks-carousel
+      [previewConfig]="{ size: { height: '100px' } }"
+      [carouselImageConfig]="{ description: { strategy: 2 } }"
+      [carouselConfig]="{ showArrows: false, maxHeight: '600px' }"
+      [dotsConfig]="{ visible: false }"
+      [id]="0"
+      [images]="galleryImages"
+      class="image-carousel"
+    >
+    </ks-carousel>
+
+    <div class="simple-media-editor-container" *ngIf="auth.isAdmin$ | async">
+      <div *ngIf="!isEditingMedia">
+        <a (click)="editSource()">
+          <fa-icon [icon]="faPen"></fa-icon>
+
+          <strong>
+            ערוך מקור
+          </strong>
+        </a>
+      </div>
+
+      <div *ngIf="isEditingMedia" class="simple-media-editor-box-container">
+        <div
+          #chipList
+          class="gallery-editor-container"
+          aria-label="Gallery editor"
+        >
+          <div
+            *ngFor="let galleryImage of newSource"
+            class="row">
+            <input class="english-input" [(ngModel)]="galleryImage.source" />
+
+            <input class="hebrew-input" [(ngModel)]="galleryImage.description" />
+
+            <a (click)="removeImageFromGallery(galleryImage)">
+              <fa-icon [icon]="faMinus"></fa-icon>
+
+              <strong>
+                הסר
+              </strong>
+            </a>
+          </div>
+
+          <div class="row">
+              <input #newGalleryImageSourceInput class="english-input" placeholder="קישור לתמונה" />
+
+              <input #newGalleryImageDescriptionInput class="description-input" placeholder="תיאור (לא חובה)" />
+
+              <a (click)="addImageToGallery(newGalleryImageSourceInput, newGalleryImageDescriptionInput)">
+                <fa-icon [icon]="faPlus"></fa-icon>
+
+                <strong>
+                  הוסף
+                </strong>
+              </a>
+          </div>
+        </div>
+
+        <div class="row">
+            <a (click)="applySourceEdit()">
+              <fa-icon [icon]="faCheck"></fa-icon>
+            </a>
+
+            <a (click)="cancelSourceEdit()">
+              <fa-icon [icon]="faTimes"></fa-icon>
+            </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

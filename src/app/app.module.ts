@@ -11,7 +11,7 @@ import { NgxYoutubePlayerModule } from "ngx-youtube-player";
 import { AngularSvgIconModule } from "angular-svg-icon";
 import { GalleryModule } from "@ks89/angular-modal-gallery";
 import { CookieService } from "ngx-cookie-service";
-import { MatSnackBarModule } from "@angular/material";
+import { MatSnackBarModule, MatFormFieldModule } from "@angular/material";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 import { AppComponent } from "./app.component";
@@ -30,6 +30,8 @@ import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { LoginComponent } from "./components/login/login.component";
 import { BlogPostPresenterComponent } from "./components/blog-post-presenter/blog-post-presenter.component";
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCBZeQwyOfiAQuVKLNWlZIl3mHCThnAW7o",
@@ -57,7 +59,10 @@ const firebaseConfig = {
     AngularFirestoreModule,
     AppRoutingModule,
     AngularFireAuthModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatChipsModule,
+    MatIconModule,
+    MatFormFieldModule
   ],
   declarations: [
     AppComponent,
@@ -75,4 +80,4 @@ const firebaseConfig = {
   bootstrap: [AppComponent],
   providers: [httpInterceptorProviders, CookieService]
 })
-export class AppModule {}
+export class AppModule { }
